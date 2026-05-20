@@ -1,3 +1,4 @@
+import logo from './assets/logo.png'
 export default function HospitalityAISaaS() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
@@ -5,7 +6,24 @@ export default function HospitalityAISaaS() {
       <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Stay Intelligence</h1>
+            <div className="flex items-center gap-3">
+  <img
+    src={logo}
+    alt="Logo"
+    className="h-30 w-30 rounded-xl"
+  />
+
+  <div>
+    <h1 className="text-2xl font-bold tracking-tight">
+      Mad House Stay Intelligence
+    </h1>
+
+    <p className="text-sm text-zinc-400">
+      Concierge IA + Pricing Intelligence
+    </p>
+  </div>
+</div>
+            
             <p className="text-sm text-zinc-400">
               Concierge IA + Pricing Intelligence
             </p>
