@@ -19,7 +19,7 @@ export default function HospitalityAISaaS() {
     </h1>
 
     <p className="text-sm text-zinc-400">
-      Concierge IA + Pricing Intelligence
+      Qualidade do Anuncio IA + Concierge IA + Pricing Intelligence
     </p>
   </div>
 </div>
@@ -29,9 +29,12 @@ export default function HospitalityAISaaS() {
             </p>
           </div>
 
-          <nav className="hidden gap-6 md:flex text-sm text-zinc-300">
+          <nav className="hidden gap-3 md:flex text-sm text-zinc-250">
             <a href="#home" className="hover:text-white transition">
               Home
+            </a>
+            <a href="#concierge" className="hover:text-white transition">
+              Qualidade do Anuncio
             </a>
             <a href="#concierge" className="hover:text-white transition">
               Concierge IA
