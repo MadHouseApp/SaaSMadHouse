@@ -9,6 +9,8 @@ export default function ListingQuality() {
 
   const handleAnalyze = async () => {
 
+    console.log("BOTÃO CLICADO")
+
     if (!url) {
       alert("Cole um link do Airbnb")
       return
@@ -17,6 +19,8 @@ export default function ListingQuality() {
     try {
 
       setLoading(true)
+
+      console.log("ENVIANDO PARA BACKEND...")
 
       const response = await fetch("http://localhost:5000/analyze", {
         method: "POST",
@@ -28,15 +32,17 @@ export default function ListingQuality() {
         }),
       })
 
+      console.log("RESPOSTA RECEBIDA")
+
       const data = await response.json()
 
-      console.log(data)
+      console.log("DADOS:", data)
 
       setResult(data)
 
     } catch (error) {
 
-      console.error(error)
+      console.error("ERRO FRONT:", error)
 
       alert("Erro ao analisar anúncio")
 
@@ -83,7 +89,6 @@ export default function ListingQuality() {
           Nossa IA irá analisar título, descrição, fotos, amenities e potencial de conversão.
         </p>
 
-        {/* Input */}
         <div className="mt-8 flex flex-col gap-4 lg:flex-row">
 
           <input
@@ -115,15 +120,15 @@ export default function ListingQuality() {
             Resultado da API
           </h2>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-8 space-y-6">
 
             <div>
               <p className="text-zinc-500">
-                URL enviada:
+                Título capturado:
               </p>
 
-              <p className="mt-2 break-all text-lg">
-                {result.url}
+              <p className="mt-2 text-lg">
+                {result?.data?.title || "Título não encontrado"}
               </p>
             </div>
 
@@ -133,7 +138,7 @@ export default function ListingQuality() {
               </p>
 
               <p className="mt-2 text-lg">
-                {result.message}
+                {result.success ? "Análise concluída" : "Erro"}
               </p>
             </div>
 
@@ -172,66 +177,6 @@ export default function ListingQuality() {
 
       </div>
 
-      {/* Insights */}
-      <div className="mt-12 grid gap-6 lg:grid-cols-3">
-
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8 lg:col-span-2">
-
-          <h3 className="text-3xl font-bold">
-            Insights da IA
-          </h3>
-
-          <div className="mt-8 space-y-5">
-
-            <InsightCard
-              title="Título pouco emocional"
-              description="Adicionar benefícios emocionais no título pode aumentar taxa de clique."
-            />
-
-            <InsightCard
-              title="Foto de capa"
-              description="A imagem principal não destaca os diferenciais do imóvel."
-            />
-
-            <InsightCard
-              title="Amenities faltantes"
-              description="Informar Wi-Fi rápido e espaço de trabalho pode melhorar conversão."
-            />
-
-          </div>
-
-        </div>
-
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
-
-          <h3 className="text-3xl font-bold">
-            Recomendações
-          </h3>
-
-          <div className="mt-8 space-y-4 text-zinc-400">
-
-            <p>
-              ✔ Melhorar foto principal
-            </p>
-
-            <p>
-              ✔ Adicionar diferenciais no título
-            </p>
-
-            <p>
-              ✔ Destacar self check-in
-            </p>
-
-            <p>
-              ✔ Melhorar descrição emocional
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
   )
 }
@@ -250,22 +195,6 @@ function ScoreCard({ title, value, subtitle }) {
 
       <p className="mt-3 text-zinc-500">
         {subtitle}
-      </p>
-
-    </div>
-  )
-}
-
-function InsightCard({ title, description }) {
-  return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-
-      <h4 className="text-xl font-semibold">
-        {title}
-      </h4>
-
-      <p className="mt-3 leading-7 text-zinc-400">
-        {description}
       </p>
 
     </div>

@@ -1,6 +1,8 @@
 const express = require("express")
 const cors = require("cors")
 
+const { scrapeAirbnb } = require("./services/scraper/airbnb")
+
 const app = express()
 
 app.use(cors())
@@ -10,20 +12,39 @@ app.get("/", (req, res) => {
   res.send("Backend funcionando 🚀")
 })
 
-app.post("/analyze", (req, res) => {
+app.post("/analyze", async (req, res) => {
 
-  const { url } = req.body
+  try {
 
-  console.log("URL recebida:", url)
+    const { url } = req.body
 
-  res.json({
-    success: true,
-    message: "Análise iniciada com sucesso",
-    url,
-  })
+    console.log("URL recebida:", url)
+
+    const result = await scrapeAirbnb(url)
+
+    console.log("RESULTADO:", result)
+
+    res.json({
+      success: true,
+      data: result,
+    })
+
+  } catch (error) {
+
+    console.error("ERRO:")
+    console.error(error)
+
+    res.status(500).json({
+      success: false,
+      error: "Erro ao analisar anúncio",
+    })
+
+  }
 
 })
 
 app.listen(5000, () => {
   console.log("Servidor rodando na porta 5000")
 })
+
+setInterval(() => {}, 1000)
